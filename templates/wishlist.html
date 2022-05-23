@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load cart_tag %}
+{% block content %}
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text product-more">
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <a href="/Product/">Product</a>
+                        <span>Shopping Cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cart-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th class="p-name">Product Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for key,value in request.session.cart.items %}
+                                <tr>
+                                    <td class="cart-pic first-row"><img height="150" width="150" src="{{value.image}}" alt=""></td>
+                                    <td class="cart-title first-row">
+                                        <h5>{{value.description}}</h5>
+                                    </td>
+                                    <td class="p-price first-row">${{value.price}}</td>
+                                    <td class="cart_quantity">
+                                        <div class="cart_quantity_button">
+                                            <a class="cart_quantity_up" href="{% url 'item_increment' value.product_id %}"> + </a>
+                                            <input class="cart_quantity_input" type="text" name="quantity" value="{{value.quantity}}" autocomplete="off" size="2">
+                                            <a class="cart_quantity_down" href="{% url 'item_decrement' value.product_id %}"> - </a>
+                                        </div>
+                                    </td>
+
+                                    <td class="total-price first-row">₹{{ value.price|multiply:value.quantity }}</td>
+                                   
+                                </tr>
+                                 {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="cart-buttons">
+                                <button class="btn btn-warning"><a style="color: white;" href="/product/">Continue shopping</a></button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+
+   {% endblock %}

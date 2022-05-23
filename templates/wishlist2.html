@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load cart_tag %}
+{% block content %}
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text product-more">
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <a href="/product/">Product</a>
+                        <span>Wish List</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cart-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th class="p-name">Product Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cart in cart_product %}
+                                <tr>
+                                    <td class="cart-pic first-row"><img src="{{cart.items.image.url}}" alt=""></td>
+                                    <td class="cart-title first-row">
+                                        <h5>{{cart.itmes.name}}</h5>
+                                    </td>
+                                    <td class="p-price first-row">${{cart.items.price}}.00</td>    
+                                    <td class="cart_quantity">
+                                        <div class="cart_quantity_button">
+                                            <a class="cart_quantity_up" href="/cart/{{cart.slug}}"> + </a>
+                                            <input class="cart_quantity_input" type="text" name="quantity" value="{{cart.quantity}}" autocomplete="off" size="2">
+                                            <a class="cart_quantity_down" href="/decreasecart/{{cart.slug}}"> - </a>
+                                        </div>
+                                    </td>
+
+                                    <td class="total-price first-row">${{ cart.items.price|multiply:cart.quantity }}.00</td>
+                                 
+                                </tr>
+                                 {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+
+   {% endblock %}
